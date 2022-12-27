@@ -1,0 +1,1 @@
+[A-Za-z0-9\._+]+@[A-Za-z]+\.(com|org|edu|net)

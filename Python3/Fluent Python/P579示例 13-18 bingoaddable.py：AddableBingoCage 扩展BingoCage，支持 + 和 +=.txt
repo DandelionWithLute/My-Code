@@ -1,0 +1,22 @@
+
+import itertools ➊
+from tombola import Tombola
+from bingo import BingoCage
+class AddableBingoCage(BingoCage): ➋
+def __add__(self, other):
+if isinstance(other, Tombola): ➌
+return AddableBingoCage(self.inspect() + other.inspect()) ➍
+else:
+return NotImplemented
+def __iadd__(self, other):
+if isinstance(other, Tombola):
+other_iterable = other.inspect() ➎
+else:
+try:
+other_iterable = iter(other)
+except TypeError: ➏
+self_cls = type(self).__name__
+msg = "right operand in += must be {!r} or an iterable"
+raise TypeError(msg.format(self_cls))
+self.load(other_iterable) ➐
+return self ➑
